@@ -2,6 +2,7 @@ package logTool;
 
 import sun.security.pkcs.ParsingException;
 import java.io.*;
+import java.nio.charset.Charset;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.text.SimpleDateFormat;
@@ -107,7 +108,7 @@ public class Model
             {
                 while (fileReader.ready())
                 {
-                    String line = fileReader.readLine();
+                    String line = new String(fileReader.readLine().getBytes(), Charset.forName("UTF-8"));
                     String[] logParameters = line.split(";");
 
                     SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");
