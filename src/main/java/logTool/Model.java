@@ -58,14 +58,18 @@ public class Model
             //get list with all LogEntries
             for (Future<List<LogEntry>> future : futures)
             {
-                for (LogEntry logEntry : future.get())
-                {
-                    list.add(logEntry);
-                }
+                list.addAll(future.get());
             }
+
+        } catch (InterruptedException | ExecutionException e)
+        {
+            view.printError("Failed to get information from the task");
+            e.printStackTrace();
         }
-        catch (Exception e)
-        {e.printStackTrace();}
+        catch (RejectedExecutionException e) {
+            view.printError("Can`t submit the task");
+            e.printStackTrace();
+        }
     }
 
     /**
